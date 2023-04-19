@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -38,63 +39,47 @@ public class RelogioXadrezGUI extends Application {
         // Criar os componentes da interface
         labelTempo1 = new Label("Tempo do jogador 1: " + relogio1.getTempoRestante());
         labelTempo2 = new Label("Tempo do jogador 2: " + relogio2.getTempoRestante());
-        
-        btnIniciar1 = new Button("Iniciar jogador 1");
-        btnIniciar1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+
+        btnIniciar1 = new Button("Pressione a tecla de espaco!!");
+        btnIniciar1.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.SPACE) {
                 relogio1.iniciar();
                 timeline1.play();
             }
+
         });
-        btnIniciar2 = new Button("Iniciar o jogador 2");
-        btnIniciar2.setOnAction(new EventHandler<ActionEvent>() {
-        	@Override
-        	public void handle(ActionEvent event) {
-        		relogio2.iniciar();
-        		timeline2.play();
-        	}
-		});
-        
-        
-        btnPausar1 = new Button("Pausar jogador 1");
-        btnPausar1.setOnAction(new EventHandler<ActionEvent>() {
-           @Override
-            public void handle(ActionEvent event) {
-                relogio1.pausar();
-                timeline1.pause();
-            }
-        });
-        
-        btnPausar2 = new Button("Pausar jogador 2");
-        btnPausar2.setOnAction(new EventHandler<ActionEvent>() {
-        	@Override
-        	public void handle(ActionEvent event) {
-        		relogio2.pausar();
-        		timeline2.pause();
-        	}
-		});
-        
+
+//        btnIniciar2 = new Button("Iniciar o jogador 2");
+//        btnIniciar2.setOnAction(event -> {
+//            relogio2.iniciar();
+//            timeline2.play();
+//        });
+//
+//        btnPausar1 = new Button("Pausar jogador 1");
+//        btnPausar1.setOnAction(event -> {
+//             relogio1.pausar();
+//             timeline1.pause();
+//        });
+//
+//        btnPausar2 = new Button("Pausar jogador 2");
+//        btnPausar2.setOnAction(event -> {
+//            relogio2.pausar();
+//            timeline2.pause();
+//        });
         
         btnReiniciar1 = new Button("Reiniciar jogador 1");
-        btnReiniciar1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                relogio1.reiniciar();
-                timeline1.stop();
-                labelTempo1.setText("Tempo do jogador 1: " + relogio1.getTempoRestante());
-            }
+        btnReiniciar1.setOnAction(event -> {
+            relogio1.reiniciar();
+            timeline1.stop();
+            labelTempo1.setText("Tempo do jogador 1: " + relogio1.getTempoRestante());
         });
         
         btnReiniciar2 = new Button("Reiniciar jogador 2");
-        btnReiniciar2.setOnAction(new EventHandler<ActionEvent>() {
-        	@Override
-        	public void handle(ActionEvent event) {
-        		relogio2.reiniciar();
-        		timeline2.stop();
-        		labelTempo2.setText("Tempo do jogador 2: " + relogio2.getTempoRestante());
-        	}
-		});
+        btnReiniciar2.setOnAction(event -> {
+            relogio2.reiniciar();
+            timeline2.stop();
+            labelTempo2.setText("Tempo do jogador 2: " + relogio2.getTempoRestante());
+        });
         
         // Criar o layout da interface
         VBox vbox = new VBox(labelTempo1, labelTempo2, btnIniciar1, btnIniciar2, btnPausar1, btnPausar2, btnReiniciar1, btnReiniciar2);
@@ -111,13 +96,7 @@ public class RelogioXadrezGUI extends Application {
         }));
         timeline1.setCycleCount(Timeline.INDEFINITE);
         
-        timeline2 = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                labelTempo2.setText("Tempo do jogador 2: " + relogio2.getTempoRestante());
-               
-            }
-        }));
+        timeline2 = new Timeline(new KeyFrame(Duration.seconds(1), event -> labelTempo2.setText("Tempo do jogador 2: " + relogio2.getTempoRestante())));
         timeline2.setCycleCount(Timeline.INDEFINITE);
         
         primaryStage.show();
