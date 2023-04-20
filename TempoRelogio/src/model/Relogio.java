@@ -49,8 +49,13 @@ public class Relogio {
     public int getTempoRestante() {
         return tempoRestante;
     }
+    
 
-    public boolean isEmAndamento() {
+    public void setTempoRestante(int tempoRestante) {
+		this.tempoRestante = tempoRestante;
+	}
+
+	public boolean isEmAndamento() {
         return emAndamento;
     }
 
