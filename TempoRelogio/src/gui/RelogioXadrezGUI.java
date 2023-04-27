@@ -142,5 +142,6 @@ public class RelogioXadrezGUI extends Application {
 //    labelTempo2.setText("Tempo do jogador 2: " + relogio2.getTempoRestante());
 //});
     
+    //subir codigo
 }
 
